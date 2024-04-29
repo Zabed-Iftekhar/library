@@ -6,20 +6,37 @@ let add=document.querySelector('#add');
 let form=document.querySelector('#form');
 let submit=document.querySelector('#submit');
 let formDisplay=document.querySelector('.form-display-screen');
-
+let reset=document.querySelector('#reset');
 
 
 
 const library=[];
 
+add.addEventListener('click',(event)=>{
+    event.preventDefault()
+    let author=document.querySelector('#author')
+    let title=document.querySelector('#title')
+    let pages=document.querySelector('#pages')
+    author.value=''
+    title.value=''
+    pages.value=''
+    formDisplay.innerText='';
+    
+})
+
+reset.addEventListener('click',(event)=>{
+    event.preventDefault()
+    library.splice(0,library.length)
+})
 
 //Upon clicking submit, values of user input are taken 
-form.addEventListener('submit',(event)=>{
+submit.addEventListener('click',(event)=>{
     event.preventDefault();
     let author=document.querySelector('#author').value;
     let title=document.querySelector('#title').value;
     let pages=document.querySelector('#pages').value;
-
+    
+  
 
 //Book constructor
     class Book{
@@ -46,13 +63,15 @@ form.addEventListener('submit',(event)=>{
 
 
             library.forEach((book)=>{
-                let div=document.createElement('div')
-                div.innerText=JSON.stringify(book);
+                let div=document.createElement('div');
+                let bookText=JSON.stringify(book);
+                bookText=bookText.replace(/[{""}]/g, '');
+                div.innerText=bookText;
                 formDisplay.appendChild(div);
+
                 
             })
             
         
     }
 })
-
